@@ -1,0 +1,8 @@
+{
+  "parent": "real_lights:custom/red_lamp_on",
+  "textures": {
+    "all": "real_lights:blocks/red_lamp_on",
+    "particle": "real_lights:blocks/red_lamp_on",
+    "texture1": "real_lights:blocks/darksteel"
+  }
+}
