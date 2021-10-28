@@ -1,0 +1,100 @@
+{
+  "buzz_lamp": {
+    "category": "block",
+    "subtitle": "lamp.buzz",
+    "sounds": [
+      {
+        "name": "real_lights:buzz_lamp",
+        "stream": false
+      }
+    ]
+  },
+  "bulb_lamp_turn_on": {
+    "category": "block",
+    "subtitle": "lamp.power",
+    "sounds": [
+      {
+        "name": "real_lights:bulb_lamp_turn_on",
+        "stream": false
+      }
+    ]
+  },
+  "fluorescent_lamp_buzz": {
+    "category": "block",
+    "subtitle": "fllamp.buzz",
+    "sounds": [
+      {
+        "name": "real_lights:fluorescent_lamp_buzz",
+        "stream": false
+      }
+    ]
+  },
+  "fluorescent_lamp_turn_on": {
+    "category": "block",
+    "subtitle": "fllamp.power",
+    "sounds": [
+      {
+        "name": "real_lights:fluorescent_lamp_turn_on",
+        "stream": false
+      }
+    ]
+  },
+  "electricshock": {
+    "category": "block",
+    "subtitle": "electric.shock",
+    "sounds": [
+      { "name": "real_lights:electricshock_big1",
+        "stream": false },
+      { "name": "real_lights:electricshock_big2",
+        "stream": false },
+      { "name": "real_lights:electricshock_big3",
+        "stream": false },
+      { "name": "real_lights:electricshock_big4",
+        "stream": false },
+      { "name": "real_lights:electricshock_small",
+        "stream": false }
+    ]
+  },
+  "lamp_off_break": {
+    "category": "block",
+    "subtitle": "lamp.break.off",
+    "sounds": [
+      { "name": "real_lights:lamp_off_break",
+        "stream": false }
+    ]
+  },
+  "lamp_on_break": {
+    "category": "block",
+    "subtitle": "lamp.break.on",
+    "sounds": [
+      { "name": "real_lights:lamp_on_break1",
+        "stream": false },
+      { "name": "real_lights:lamp_on_break2",
+        "stream": false }
+    ]
+  },
+  "touch_heat_hit": {
+    "category": "block",
+    "subtitle": "touch.heat.damage",
+    "sounds": [
+      { "name": "real_lights:touch_heat_hit1",
+        "stream": false },
+      { "name": "real_lights:touch_heat_hit2",
+        "stream": false }
+    ]
+  },
+  "touch_shatters_hit": {
+    "category": "block",
+    "subtitle": "touch.shatters.damage",
+    "sounds": [
+      { "name": "real_lights:touch_shatters_hit1",
+        "stream": false },
+      { "name": "real_lights:touch_shatters_hit2",
+        "stream": false },
+      { "name": "real_lights:touch_shatters_hit3",
+        "stream": false },
+      { "name": "real_lights:touch_shatters_hit4",
+        "stream": false }
+    ]
+  }
+}
