@@ -1,5 +1,0 @@
-attention
-default position of model file is
-
-facing=down_EW
-from east to west
