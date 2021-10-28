@@ -1,0 +1,11 @@
+{
+  "parent": "real_lights:custom/red_lamp_off",
+  "textures": {
+    "particle": "real_lights:blocks/red_lamp",
+	"0": "real_lights:blocks/gray_metal",
+	"1": "real_lights:blocks/darksteel",
+	"2": "real_lights:blocks/yellow",
+	"4": "real_lights:blocks/blue_steel",
+	"7": "real_lights:blocks/red_lamp"
+  }
+}
