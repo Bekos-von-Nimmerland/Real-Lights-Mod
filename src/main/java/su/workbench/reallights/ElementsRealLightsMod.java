@@ -62,6 +62,10 @@ public class ElementsRealLightsMod implements IWorldGenerator {
 				new net.minecraft.util.SoundEvent(new ResourceLocation("real_lights", "lamp_off_break")));
 		sounds.put(new ResourceLocation("real_lights", "lamp_on_break"),
 				new net.minecraft.util.SoundEvent(new ResourceLocation("real_lights", "lamp_on_break")));
+		sounds.put(new ResourceLocation("real_lights", "touch_heat_hit"),
+				new net.minecraft.util.SoundEvent(new ResourceLocation("real_lights", "touch_heat_hit")));
+		sounds.put(new ResourceLocation("real_lights", "touch_shatters_hit"),
+				new net.minecraft.util.SoundEvent(new ResourceLocation("real_lights", "touch_shatters_hit")));
 	}
 
 	public void preInit(FMLPreInitializationEvent event) {
@@ -181,24 +185,42 @@ public class ElementsRealLightsMod implements IWorldGenerator {
 	    protected static final AxisAlignedBB FL_LAMP_EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.0D, 0.2D, 0.75D, 1.0D);
 	    protected static final AxisAlignedBB FL_LAMP_UP_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.25D, 1.0D, 0.2D, 0.75D);
 	    protected static final AxisAlignedBB FL_LAMP_DOWN_AABB = new AxisAlignedBB(0.0D, 0.8D, 0.25D, 1.0D, 1.0D, 0.75D);
-		protected static final AxisAlignedBB INC_LAMP_NORTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.5D, 0.75D, 0.75D, 1.0D);
-	    protected static final AxisAlignedBB INC_LAMP_SOUTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.0D, 0.75D, 0.75D, 0.5D);
-	    protected static final AxisAlignedBB INC_LAMP_WEST_AABB = new AxisAlignedBB(0.5D, 0.25D, 0.25D, 1.0D, 0.75D, 0.75D);
-	    protected static final AxisAlignedBB INC_LAMP_EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 0.5D, 0.75D, 0.75D);
-	    protected static final AxisAlignedBB INC_LAMP_UP_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 0.5D, 0.75D);
-	    protected static final AxisAlignedBB INC_LAMP_DOWN_AABB = new AxisAlignedBB(0.25D, 0.5D, 0.25D, 0.75D, 1.0D, 0.75D);
-	    protected static final AxisAlignedBB LIGHT_BULB_NORTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.5D, 0.75D, 0.75D, 1.0D);
-	    protected static final AxisAlignedBB LIGHT_BULB_SOUTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.0D, 0.75D, 0.75D, 0.5D);
-	    protected static final AxisAlignedBB LIGHT_BULB_WEST_AABB = new AxisAlignedBB(0.5D, 0.25D, 0.25D, 1.0D, 0.75D, 0.75D);
-	    protected static final AxisAlignedBB LIGHT_BULB_EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 0.5D, 0.75D, 0.75D);
-	    protected static final AxisAlignedBB LIGHT_BULB_UP_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 0.5D, 0.75D);
-	    protected static final AxisAlignedBB LIGHT_BULB_DOWN_AABB = new AxisAlignedBB(0.25D, 0.5D, 0.25D, 0.75D, 1.0D, 0.75D);
-	    protected static final AxisAlignedBB RED_LAMP_NORTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.6D, 0.75D, 0.75D, 1.0D);
-	    protected static final AxisAlignedBB RED_LAMP_SOUTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.0D, 0.75D, 0.75D, 0.4D);
-	    protected static final AxisAlignedBB RED_LAMP_WEST_AABB = new AxisAlignedBB(0.6D, 0.25D, 0.25D, 1.0D, 0.75D, 0.75D);
-	    protected static final AxisAlignedBB RED_LAMP_EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 0.4D, 0.75D, 0.75D);
-	    protected static final AxisAlignedBB RED_LAMP_UP_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 0.4D, 0.75D);
-	    protected static final AxisAlignedBB RED_LAMP_DOWN_AABB = new AxisAlignedBB(0.25D, 0.6D, 0.25D, 0.75D, 1.0D, 0.75D);
+		protected static final AxisAlignedBB CAGED_LIGHT_BULB_NORTH_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.5D, 0.7D, 0.7D, 1.0D);
+	    protected static final AxisAlignedBB CAGED_LIGHT_BULB_SOUTH_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.0D, 0.7D, 0.7D, 0.5D);
+	    protected static final AxisAlignedBB CAGED_LIGHT_BULB_WEST_AABB = new AxisAlignedBB(0.5D, 0.3D, 0.3D, 1.0D, 0.7D, 0.7D);
+	    protected static final AxisAlignedBB CAGED_LIGHT_BULB_EAST_AABB = new AxisAlignedBB(0.0D, 0.3D, 0.3D, 0.5D, 0.7D, 0.7D);
+	    protected static final AxisAlignedBB CAGED_LIGHT_BULB_UP_AABB = new AxisAlignedBB(0.3D, 0.0D, 0.3D, 0.7D, 0.5D, 0.7D);
+	    protected static final AxisAlignedBB CAGED_LIGHT_BULB_DOWN_AABB = new AxisAlignedBB(0.3D, 0.5D, 0.3D, 0.7D, 1.0D, 0.7D);
+	    protected static final AxisAlignedBB LIGHT_BULB_NORTH_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.5D, 0.7D, 0.7D, 1.0D);
+	    protected static final AxisAlignedBB LIGHT_BULB_SOUTH_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.0D, 0.7D, 0.7D, 0.5D);
+	    protected static final AxisAlignedBB LIGHT_BULB_WEST_AABB = new AxisAlignedBB(0.5D, 0.3D, 0.3D, 1.0D, 0.7D, 0.7D);
+	    protected static final AxisAlignedBB LIGHT_BULB_EAST_AABB = new AxisAlignedBB(0.0D, 0.3D, 0.3D, 0.5D, 0.7D, 0.7D);
+	    protected static final AxisAlignedBB LIGHT_BULB_UP_AABB = new AxisAlignedBB(0.3D, 0.0D, 0.3D, 0.7D, 0.5D, 0.7D);
+	    protected static final AxisAlignedBB LIGHT_BULB_DOWN_AABB = new AxisAlignedBB(0.3D, 0.5D, 0.3D, 0.7D, 1.0D, 0.7D);
+	    protected static final AxisAlignedBB LIGHT_BULB_SHATTERED_NORTH_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.7D, 0.7D, 0.7D, 1.0D);
+	    protected static final AxisAlignedBB LIGHT_BULB_SHATTERED_SOUTH_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.0D, 0.7D, 0.7D, 0.3D);
+	    protected static final AxisAlignedBB LIGHT_BULB_SHATTERED_WEST_AABB = new AxisAlignedBB(0.7D, 0.3D, 0.3D, 1.0D, 0.7D, 0.7D);
+	    protected static final AxisAlignedBB LIGHT_BULB_SHATTERED_EAST_AABB = new AxisAlignedBB(0.0D, 0.3D, 0.3D, 0.3D, 0.7D, 0.7D);
+	    protected static final AxisAlignedBB LIGHT_BULB_SHATTERED_UP_AABB = new AxisAlignedBB(0.3D, 0.0D, 0.3D, 0.7D, 0.3D, 0.7D);
+	    protected static final AxisAlignedBB LIGHT_BULB_SHATTERED_DOWN_AABB = new AxisAlignedBB(0.3D, 0.7D, 0.3D, 0.7D, 1.0D, 0.7D);
+	    protected static final AxisAlignedBB RED_LAMP_NORTH_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.6D, 0.7D, 0.7D, 1.0D);
+	    protected static final AxisAlignedBB RED_LAMP_SOUTH_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.0D, 0.7D, 0.7D, 0.4D);
+	    protected static final AxisAlignedBB RED_LAMP_WEST_AABB = new AxisAlignedBB(0.6D, 0.3D, 0.3D, 1.0D, 0.7D, 0.7D);
+	    protected static final AxisAlignedBB RED_LAMP_EAST_AABB = new AxisAlignedBB(0.0D, 0.3D, 0.3D, 0.4D, 0.7D, 0.7D);
+	    protected static final AxisAlignedBB RED_LAMP_UP_AABB = new AxisAlignedBB(0.3D, 0.0D, 0.3D, 0.7D, 0.4D, 0.7D);
+	    protected static final AxisAlignedBB RED_LAMP_DOWN_AABB = new AxisAlignedBB(0.3D, 0.6D, 0.3D, 0.7D, 1.0D, 0.7D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_NORTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.0D, 0.75D, 0.75D, 1.0D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_SOUTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.0D, 0.75D, 0.75D, 1.0D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_WEST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 1.0D, 0.75D, 0.75D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 1.0D, 0.75D, 0.75D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_UP_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_DOWN_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_SHATTERED_NORTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.5D, 0.75D, 0.75D, 1.0D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_SHATTERED_SOUTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.0D, 0.75D, 0.75D, 0.5D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_SHATTERED_WEST_AABB = new AxisAlignedBB(0.5D, 0.25D, 0.25D, 1.0D, 0.75D, 0.75D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_SHATTERED_EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 0.5D, 0.75D, 0.75D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_SHATTERED_UP_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 0.5D, 0.75D);
+	    protected static final AxisAlignedBB VOXEL_LIGHT_BULB_SHATTERED_DOWN_AABB = new AxisAlignedBB(0.25D, 0.5D, 0.25D, 0.75D, 1.0D, 0.75D);
 	    
 		public ModElement(ElementsRealLightsMod elements, int sortid) {
 			this.elements = elements;

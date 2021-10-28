@@ -15,22 +15,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.DamageSource;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityFireball;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.Enchantments;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.properties.PropertyDirection;
@@ -41,25 +31,24 @@ import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.Block;
 import su.workbench.reallights.ElementsRealLightsMod;
 import su.workbench.reallights.util.handlers.ConfigHandler;
+import su.workbench.reallights.util.procedure.ProcedureFluorescentLampCagedOnRedstoneOff;
 import su.workbench.reallights.util.procedure.ProcedureLampOnPlayerHits;
-import su.workbench.reallights.util.procedure.ProcedureLightBulbOnBlockHitWithItem;
-import su.workbench.reallights.util.procedure.ProcedureLightBulbOnRedstoneOff;
 
 import java.util.Map;
 import java.util.Random;
 import java.util.HashMap;
 
 @ElementsRealLightsMod.ModElement.Tag
-public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
-	@GameRegistry.ObjectHolder("real_lights:light_bulb_on")
+public class BlockFluorescentLampCagedOn extends ElementsRealLightsMod.ModElement {
+	@GameRegistry.ObjectHolder("real_lights:fluorescent_lamp_caged_on")
 	public static final Block block = null;
-	public BlockLightBulbOn(ElementsRealLightsMod instance) {
-		super(instance, 13);
+	public BlockFluorescentLampCagedOn(ElementsRealLightsMod instance) {
+		super(instance, 2);
 	}
 
 	@Override
 	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("light_bulb_on"));
+		elements.blocks.add(() -> new BlockCustom().setRegistryName("fluorescent_lamp_caged_on"));
 		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
 
@@ -67,13 +56,13 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 	@Override
 	public void registerModels(ModelRegistryEvent event) {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("real_lights:light_bulb_on", "inventory"));
+				new ModelResourceLocation("real_lights:fluorescent_lamp_caged_on", "inventory"));
 	}
 	public static class BlockCustom extends Block {
 		public static final PropertyDirection FACING = BlockDirectional.FACING;
 		public BlockCustom() {
 			super(Material.REDSTONE_LIGHT);
-			setUnlocalizedName("light_bulb_on");
+			setUnlocalizedName("fluorescent_lamp_caged_on");
 			setSoundType(SoundType.METAL);
 			setHardness(0.5F);
 			setResistance(5F);
@@ -83,12 +72,6 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 			this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		}
 
-		@SideOnly(Side.CLIENT)
-		@Override
-		public BlockRenderLayer getBlockLayer() {
-			return BlockRenderLayer.TRANSLUCENT;
-		}
-
 		@Override
 		@javax.annotation.Nullable
 		public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
@@ -96,37 +79,37 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 	        {
 	            case EAST:
 	            default:
-	                return LIGHT_BULB_EAST_AABB;
+	                return FL_LAMP_EAST_AABB;
 	            case WEST:
-	                return LIGHT_BULB_WEST_AABB;
+	                return FL_LAMP_WEST_AABB;
 	            case SOUTH:
-	                return LIGHT_BULB_SOUTH_AABB;
+	                return FL_LAMP_SOUTH_AABB;
 	            case NORTH:
-	                return LIGHT_BULB_NORTH_AABB;
+	                return FL_LAMP_NORTH_AABB;
 	            case UP:
-	                return LIGHT_BULB_UP_AABB;
+	                return FL_LAMP_UP_AABB;
 	            case DOWN:
-	                return LIGHT_BULB_DOWN_AABB;
+	                return FL_LAMP_DOWN_AABB;
 	        }
 		}
-		
+
 	    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 	    {
 	        switch (state.getValue(FACING))
 	        {
 	            case EAST:
 	            default:
-	                return LIGHT_BULB_EAST_AABB;
+	                return FL_LAMP_EAST_AABB;
 	            case WEST:
-	                return LIGHT_BULB_WEST_AABB;
+	                return FL_LAMP_WEST_AABB;
 	            case SOUTH:
-	                return LIGHT_BULB_SOUTH_AABB;
+	                return FL_LAMP_SOUTH_AABB;
 	            case NORTH:
-	                return LIGHT_BULB_NORTH_AABB;
+	                return FL_LAMP_NORTH_AABB;
 	            case UP:
-	                return LIGHT_BULB_UP_AABB;
+	                return FL_LAMP_UP_AABB;
 	            case DOWN:
-	                return LIGHT_BULB_DOWN_AABB;
+	                return FL_LAMP_DOWN_AABB;
 	        }
 	    }
 	    
@@ -135,10 +118,10 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 	    {
 	            if (rand.nextDouble() < 0.1D)
 	            {
-	                worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, (net.minecraft.util.SoundEvent) net.minecraft.util.SoundEvent.REGISTRY.getObject(new ResourceLocation("real_lights:buzz_lamp")), SoundCategory.BLOCKS, 0.1F, 1.0F, false);
+	                worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, (net.minecraft.util.SoundEvent) net.minecraft.util.SoundEvent.REGISTRY.getObject(new ResourceLocation("real_lights:fluorescent_lamp_buzz")), SoundCategory.BLOCKS, 0.1F, 1.0F, false);
 	            }
 	    }
-	    
+		
 		@Override
 		public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 			return ConfigHandler.CAN_PASS_THROUGH;
@@ -203,19 +186,18 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 					$_dependencies.put("y", y);
 					$_dependencies.put("z", z);
 					$_dependencies.put("world", world);
-					ProcedureLightBulbOnRedstoneOff.executeProcedure($_dependencies);
+					ProcedureFluorescentLampCagedOnRedstoneOff.executeProcedure($_dependencies);
 				}
 			}
 		}
-
 		@Override
 		public void onBlockClicked(World world, BlockPos pos, EntityPlayer entity) {
-			if (!world.isRemote) {
+			if (!world.isRemote && ConfigHandler.ELECTRIC_SHOCK) {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
 			ItemStack stack = entity.getHeldItemMainhand();
-			if ((stack.isEmpty() || EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) && ConfigHandler.ELECTRIC_SHOCK) {
+			if (stack.isEmpty()) {
 			{Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
 				$_dependencies.put("x", x);
@@ -223,36 +205,8 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
 				ProcedureLampOnPlayerHits.executeProcedure($_dependencies);}
-			}else if(ConfigHandler.LAMP_BREAK_BY_ITEMS){
-			{Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				ProcedureLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}}
+			}
 		}
 		}
-		@Override
-	    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
-	    {
-			if (((entityIn instanceof EntityPlayer) ? !(((EntityPlayer) entityIn).capabilities.isCreativeMode) : (entityIn instanceof EntityLivingBase && !(entityIn instanceof EntityItem)&& !(entityIn instanceof AbstractSkeleton))) && ConfigHandler.TOUCH_HEAT_HIT) {
-				entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, (float) ConfigHandler.TOUCH_HEAT_HIT_HEALTH_LOSS);
-				int x = pos.getX(), y = pos.getY(), z = pos.getZ();
-		worldIn.playSound((EntityPlayer) null, x, y, z,(net.minecraft.util.SoundEvent) net.minecraft.util.SoundEvent.REGISTRY.getObject(new ResourceLocation("real_lights:touch_heat_hit")),SoundCategory.BLOCKS, 0.75F, 1.0F);
-		    }
-			if(ConfigHandler.LAMP_BREAK_BY_PROJECTILES){
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-	        if (!worldIn.isRemote && (entityIn instanceof EntityArrow || entityIn instanceof EntityThrowable || entityIn instanceof EntityFireball))
-	        {
-	        	{Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", worldIn);
-				ProcedureLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}
-	        }
-	    }}
 	}
 }

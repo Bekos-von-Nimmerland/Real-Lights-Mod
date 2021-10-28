@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.Mirror;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.Item;
@@ -25,16 +26,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.Block;
-
-import su.workbench.reallights.procedure.ProcedureRedLampRedstoneOn;
 import su.workbench.reallights.ElementsRealLightsMod;
+import su.workbench.reallights.util.handlers.ConfigHandler;
+import su.workbench.reallights.util.procedure.ProcedureRedLampRedstoneOn;
 
 import java.util.Map;
 import java.util.HashMap;
 
 @ElementsRealLightsMod.ModElement.Tag
 public class BlockRedLamp extends ElementsRealLightsMod.ModElement {
-	@GameRegistry.ObjectHolder("real_lights:red_lamp")
+	@GameRegistry.ObjectHolder("real_lights:red_lamp_off")
 	public static final Block block = null;
 	public BlockRedLamp(ElementsRealLightsMod instance) {
 		super(instance, 16);
@@ -42,20 +43,20 @@ public class BlockRedLamp extends ElementsRealLightsMod.ModElement {
 
 	@Override
 	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("red_lamp"));
+		elements.blocks.add(() -> new BlockCustom().setRegistryName("red_lamp_off"));
 		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation("real_lights:red_lamp", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation("real_lights:red_lamp_off", "inventory"));
 	}
 	public static class BlockCustom extends Block {
 		public static final PropertyDirection FACING = BlockDirectional.FACING;
 		public BlockCustom() {
 			super(Material.REDSTONE_LIGHT);
-			setUnlocalizedName("red_lamp");
+			setUnlocalizedName("red_lamp_off");
 			setSoundType(SoundType.METAL);
 			setHardness(0.5F);
 			setResistance(5F);
@@ -64,11 +65,31 @@ public class BlockRedLamp extends ElementsRealLightsMod.ModElement {
 			setCreativeTab(CreativeTabs.REDSTONE);
 			this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		}
+		@SideOnly(Side.CLIENT)
+		@Override
+		public BlockRenderLayer getBlockLayer() {
+			return BlockRenderLayer.TRANSLUCENT;
+		}
 
 		@Override
 		@javax.annotation.Nullable
 		public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-			return NULL_AABB;
+	        switch (blockState.getValue(FACING))
+	        {
+	            case EAST:
+	            default:
+	                return RED_LAMP_EAST_AABB;
+	            case WEST:
+	                return RED_LAMP_WEST_AABB;
+	            case SOUTH:
+	                return RED_LAMP_SOUTH_AABB;
+	            case NORTH:
+	                return RED_LAMP_NORTH_AABB;
+	            case UP:
+	                return RED_LAMP_UP_AABB;
+	            case DOWN:
+	                return RED_LAMP_DOWN_AABB;
+	        }
 		}
 
 	    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -93,7 +114,7 @@ public class BlockRedLamp extends ElementsRealLightsMod.ModElement {
 	    
 		@Override
 		public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-			return true;
+			return ConfigHandler.CAN_PASS_THROUGH;
 		}
 
 		@Override
@@ -129,7 +150,7 @@ public class BlockRedLamp extends ElementsRealLightsMod.ModElement {
 		@Override
 		public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
 				EntityLivingBase placer) {
-			return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+			return this.getDefaultState().withProperty(FACING, facing);
 		}
 
 		@Override

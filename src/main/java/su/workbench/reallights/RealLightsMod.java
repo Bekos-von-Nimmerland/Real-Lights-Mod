@@ -1,6 +1,7 @@
 package su.workbench.reallights;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
+import su.workbench.reallights.util.handlers.ConfigHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.EntityEntry;
@@ -23,12 +24,14 @@ import net.minecraft.potion.Potion;
 import net.minecraft.item.Item;
 import net.minecraft.block.Block;
 
+import java.io.File;
 import java.util.function.Supplier;
 
 @Mod(modid = RealLightsMod.MODID, version = RealLightsMod.VERSION)
 public class RealLightsMod {
+	public static File config;
 	public static final String MODID = "real_lights";
-	public static final String VERSION = "1.0.0";
+	public static final String VERSION = "1.1";
 	public static final SimpleNetworkWrapper PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("real_lights:a");
 	@SidedProxy(clientSide = "su.workbench.reallights.ClientProxyRealLightsMod", serverSide = "su.workbench.reallights.ServerProxyRealLightsMod")
 	public static IProxyRealLightsMod proxy;
@@ -44,6 +47,7 @@ public class RealLightsMod {
 		MinecraftForge.EVENT_BUS.register(elements);
 		elements.getElements().forEach(element -> element.preInit(event));
 		proxy.preInit(event);
+		ConfigHandler.registerConfig(event);
 	}
 
 	@Mod.EventHandler

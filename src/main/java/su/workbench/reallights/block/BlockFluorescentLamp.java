@@ -16,8 +16,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Enchantments;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -29,9 +33,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.Block;
-import su.workbench.reallights.procedure.ProcedureFluorescentLampBlockHitWithItem;
-import su.workbench.reallights.procedure.ProcedureFluorescentLampRedstoneOn;
 import su.workbench.reallights.ElementsRealLightsMod;
+import su.workbench.reallights.util.handlers.ConfigHandler;
+import su.workbench.reallights.util.procedure.ProcedureFluorescentLampBlockHitWithItem;
+import su.workbench.reallights.util.procedure.ProcedureFluorescentLampRedstoneOn;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -73,7 +78,22 @@ public class BlockFluorescentLamp extends ElementsRealLightsMod.ModElement {
 		@Override
 		@javax.annotation.Nullable
 		public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-			return NULL_AABB;
+	        switch (blockState.getValue(FACING))
+	        {
+	            case EAST:
+	            default:
+	                return FL_LAMP_EAST_AABB;
+	            case WEST:
+	                return FL_LAMP_WEST_AABB;
+	            case SOUTH:
+	                return FL_LAMP_SOUTH_AABB;
+	            case NORTH:
+	                return FL_LAMP_NORTH_AABB;
+	            case UP:
+	                return FL_LAMP_UP_AABB;
+	            case DOWN:
+	                return FL_LAMP_DOWN_AABB;
+	        }
 		}
 		
 	    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -98,7 +118,7 @@ public class BlockFluorescentLamp extends ElementsRealLightsMod.ModElement {
 
 		@Override
 		public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-			return true;
+			return ConfigHandler.CAN_PASS_THROUGH;
 		}
 
 		@Override
@@ -134,7 +154,7 @@ public class BlockFluorescentLamp extends ElementsRealLightsMod.ModElement {
 		@Override
 		public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
 				EntityLivingBase placer) {
-			return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+			return this.getDefaultState().withProperty(FACING, facing);
 		}
 
 		@Override
@@ -173,14 +193,31 @@ public class BlockFluorescentLamp extends ElementsRealLightsMod.ModElement {
 			int z = pos.getZ();
 			
 			ItemStack stack = entity.getHeldItemMainhand();
-			if (stack.isEmpty() || EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {}else{
+			if (stack.isEmpty() || EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {}else if(ConfigHandler.LAMP_BREAK_BY_ITEMS){
 			{Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("x", x);
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
 				ProcedureFluorescentLampBlockHitWithItem.executeProcedure($_dependencies);}}
-		}else {return;}
 		}
+		}
+		@Override
+	    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+	    {
+			if(ConfigHandler.LAMP_BREAK_BY_PROJECTILES){
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+	        if (!worldIn.isRemote && (entityIn instanceof EntityArrow || entityIn instanceof EntityThrowable || entityIn instanceof EntityFireball))
+	        {
+	        	{Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", worldIn);
+				ProcedureFluorescentLampBlockHitWithItem.executeProcedure($_dependencies);}
+	        }
+	    }}
 	}
 }

@@ -11,22 +11,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.Rotation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.Mirror;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityFireball;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.Enchantments;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.properties.PropertyDirection;
@@ -37,25 +27,22 @@ import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.Block;
 import su.workbench.reallights.ElementsRealLightsMod;
 import su.workbench.reallights.util.handlers.ConfigHandler;
-import su.workbench.reallights.util.procedure.ProcedureFluorescentLampOnBlockHitWithItem;
-import su.workbench.reallights.util.procedure.ProcedureFluorescentLampOnRedstoneOff;
-import su.workbench.reallights.util.procedure.ProcedureLampOnPlayerHits;
+import su.workbench.reallights.util.procedure.ProcedureFluorescentLampCagedRedstoneOn;
 
 import java.util.Map;
-import java.util.Random;
 import java.util.HashMap;
 
 @ElementsRealLightsMod.ModElement.Tag
-public class BlockFluorescentLampOn extends ElementsRealLightsMod.ModElement {
-	@GameRegistry.ObjectHolder("real_lights:fluorescent_lamp_on")
-	public static final Block block = null;
-	public BlockFluorescentLampOn(ElementsRealLightsMod instance) {
-		super(instance, 2);
+public class BlockFluorescentLampCaged extends ElementsRealLightsMod.ModElement {
+	@GameRegistry.ObjectHolder("real_lights:fluorescent_lamp_caged")
+	public static final Block block = null;    
+	public BlockFluorescentLampCaged(ElementsRealLightsMod instance) {
+		super(instance, 1);
 	}
 
 	@Override
 	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("fluorescent_lamp_on"));
+		elements.blocks.add(() -> new BlockCustom().setRegistryName("fluorescent_lamp_caged"));
 		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
 
@@ -63,17 +50,17 @@ public class BlockFluorescentLampOn extends ElementsRealLightsMod.ModElement {
 	@Override
 	public void registerModels(ModelRegistryEvent event) {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("real_lights:fluorescent_lamp_on", "inventory"));
+				new ModelResourceLocation("real_lights:fluorescent_lamp_caged", "inventory"));
 	}
 	public static class BlockCustom extends Block {
 		public static final PropertyDirection FACING = BlockDirectional.FACING;
 		public BlockCustom() {
 			super(Material.REDSTONE_LIGHT);
-			setUnlocalizedName("fluorescent_lamp_on");
+			setUnlocalizedName("fluorescent_lamp_caged");
 			setSoundType(SoundType.METAL);
 			setHardness(0.5F);
 			setResistance(5F);
-			setLightLevel(1F);
+			setLightLevel(0F);
 			setLightOpacity(0);
 			setCreativeTab(CreativeTabs.REDSTONE);
 			this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
@@ -99,7 +86,7 @@ public class BlockFluorescentLampOn extends ElementsRealLightsMod.ModElement {
 	                return FL_LAMP_DOWN_AABB;
 	        }
 		}
-
+		
 	    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 	    {
 	        switch (state.getValue(FACING))
@@ -119,16 +106,7 @@ public class BlockFluorescentLampOn extends ElementsRealLightsMod.ModElement {
 	                return FL_LAMP_DOWN_AABB;
 	        }
 	    }
-	    
-	    @SideOnly(Side.CLIENT)
-	    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
-	    {
-	            if (rand.nextDouble() < 0.1D)
-	            {
-	                worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, (net.minecraft.util.SoundEvent) net.minecraft.util.SoundEvent.REGISTRY.getObject(new ResourceLocation("real_lights:fluorescent_lamp_buzz")), SoundCategory.BLOCKS, 0.1F, 1.0F, false);
-	            }
-	    }
-		
+
 		@Override
 		public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 			return ConfigHandler.CAN_PASS_THROUGH;
@@ -186,57 +164,15 @@ public class BlockFluorescentLampOn extends ElementsRealLightsMod.ModElement {
 			int y = pos.getY();
 			int z = pos.getZ();
 			if (world.isBlockIndirectlyGettingPowered(new BlockPos(x, y, z)) > 0) {
-			} else {
 				{
 					Map<String, Object> $_dependencies = new HashMap<>();
 					$_dependencies.put("x", x);
 					$_dependencies.put("y", y);
 					$_dependencies.put("z", z);
 					$_dependencies.put("world", world);
-					ProcedureFluorescentLampOnRedstoneOff.executeProcedure($_dependencies);
+					ProcedureFluorescentLampCagedRedstoneOn.executeProcedure($_dependencies);
 				}
 			}
 		}
-		@Override
-		public void onBlockClicked(World world, BlockPos pos, EntityPlayer entity) {
-			if (!world.isRemote) {
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-			ItemStack stack = entity.getHeldItemMainhand();
-			if ((stack.isEmpty() || EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0)  && ConfigHandler.ELECTRIC_SHOCK) {
-			{Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				ProcedureLampOnPlayerHits.executeProcedure($_dependencies);}
-			}else if(ConfigHandler.LAMP_BREAK_BY_ITEMS){
-			{Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				ProcedureFluorescentLampOnBlockHitWithItem.executeProcedure($_dependencies);}}
-		}
-		}
-		@Override
-	    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
-	    {
-			if(ConfigHandler.LAMP_BREAK_BY_PROJECTILES){
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-	        if (!worldIn.isRemote && (entityIn instanceof EntityArrow || entityIn instanceof EntityThrowable || entityIn instanceof EntityFireball))
-	        {
-	        	{Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", worldIn);
-				ProcedureFluorescentLampOnBlockHitWithItem.executeProcedure($_dependencies);}
-	        }
-	    }}
 	}
 }

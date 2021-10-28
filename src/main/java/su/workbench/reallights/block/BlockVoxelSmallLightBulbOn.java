@@ -42,24 +42,24 @@ import net.minecraft.block.Block;
 import su.workbench.reallights.ElementsRealLightsMod;
 import su.workbench.reallights.util.handlers.ConfigHandler;
 import su.workbench.reallights.util.procedure.ProcedureLampOnPlayerHits;
-import su.workbench.reallights.util.procedure.ProcedureLightBulbOnBlockHitWithItem;
-import su.workbench.reallights.util.procedure.ProcedureLightBulbOnRedstoneOff;
+import su.workbench.reallights.util.procedure.ProcedureVoxelSmallLightBulbOnBlockHitWithItem;
+import su.workbench.reallights.util.procedure.ProcedureVoxelSmallLightBulbOnRedstoneOff;
 
 import java.util.Map;
 import java.util.Random;
 import java.util.HashMap;
 
 @ElementsRealLightsMod.ModElement.Tag
-public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
-	@GameRegistry.ObjectHolder("real_lights:light_bulb_on")
+public class BlockVoxelSmallLightBulbOn extends ElementsRealLightsMod.ModElement {
+	@GameRegistry.ObjectHolder("real_lights:voxel_small_light_bulb_on")
 	public static final Block block = null;
-	public BlockLightBulbOn(ElementsRealLightsMod instance) {
+	public BlockVoxelSmallLightBulbOn(ElementsRealLightsMod instance) {
 		super(instance, 13);
 	}
 
 	@Override
 	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("light_bulb_on"));
+		elements.blocks.add(() -> new BlockCustom().setRegistryName("voxel_small_light_bulb_on"));
 		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
 
@@ -67,13 +67,13 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 	@Override
 	public void registerModels(ModelRegistryEvent event) {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("real_lights:light_bulb_on", "inventory"));
+				new ModelResourceLocation("real_lights:voxel_small_light_bulb_on", "inventory"));
 	}
 	public static class BlockCustom extends Block {
 		public static final PropertyDirection FACING = BlockDirectional.FACING;
 		public BlockCustom() {
 			super(Material.REDSTONE_LIGHT);
-			setUnlocalizedName("light_bulb_on");
+			setUnlocalizedName("voxel_small_light_bulb_on");
 			setSoundType(SoundType.METAL);
 			setHardness(0.5F);
 			setResistance(5F);
@@ -203,7 +203,7 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 					$_dependencies.put("y", y);
 					$_dependencies.put("z", z);
 					$_dependencies.put("world", world);
-					ProcedureLightBulbOnRedstoneOff.executeProcedure($_dependencies);
+					ProcedureVoxelSmallLightBulbOnRedstoneOff.executeProcedure($_dependencies);
 				}
 			}
 		}
@@ -229,17 +229,17 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
-				ProcedureLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}}
+				ProcedureVoxelSmallLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}}
 		}
 		}
 		@Override
 	    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
 	    {
-			if (((entityIn instanceof EntityPlayer) ? !(((EntityPlayer) entityIn).capabilities.isCreativeMode) : (entityIn instanceof EntityLivingBase && !(entityIn instanceof EntityItem)&& !(entityIn instanceof AbstractSkeleton))) && ConfigHandler.TOUCH_HEAT_HIT) {
-				entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, (float) ConfigHandler.TOUCH_HEAT_HIT_HEALTH_LOSS);
-				int x = pos.getX(), y = pos.getY(), z = pos.getZ();
-		worldIn.playSound((EntityPlayer) null, x, y, z,(net.minecraft.util.SoundEvent) net.minecraft.util.SoundEvent.REGISTRY.getObject(new ResourceLocation("real_lights:touch_heat_hit")),SoundCategory.BLOCKS, 0.75F, 1.0F);
-		    }
+		if (((entityIn instanceof EntityPlayer) ? !(((EntityPlayer) entityIn).capabilities.isCreativeMode) : (entityIn instanceof EntityLivingBase && !(entityIn instanceof EntityItem)&& !(entityIn instanceof AbstractSkeleton))) && ConfigHandler.TOUCH_HEAT_HIT) {
+			entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, (float) ConfigHandler.TOUCH_HEAT_HIT_HEALTH_LOSS);
+			int x = pos.getX(), y = pos.getY(), z = pos.getZ();
+	worldIn.playSound((EntityPlayer) null, x, y, z,(net.minecraft.util.SoundEvent) net.minecraft.util.SoundEvent.REGISTRY.getObject(new ResourceLocation("real_lights:touch_heat_hit")),SoundCategory.BLOCKS, 0.75F, 1.0F);
+	    }
 			if(ConfigHandler.LAMP_BREAK_BY_PROJECTILES){
 			int x = pos.getX();
 			int y = pos.getY();
@@ -251,8 +251,9 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", worldIn);
-				ProcedureLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}
+				ProcedureVoxelSmallLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}
 	        }
-	    }}
+	    }
+		}
 	}
 }

@@ -42,24 +42,24 @@ import net.minecraft.block.Block;
 import su.workbench.reallights.ElementsRealLightsMod;
 import su.workbench.reallights.util.handlers.ConfigHandler;
 import su.workbench.reallights.util.procedure.ProcedureLampOnPlayerHits;
-import su.workbench.reallights.util.procedure.ProcedureLightBulbOnBlockHitWithItem;
-import su.workbench.reallights.util.procedure.ProcedureLightBulbOnRedstoneOff;
+import su.workbench.reallights.util.procedure.ProcedureVoxelLightBulbOnBlockHitWithItem;
+import su.workbench.reallights.util.procedure.ProcedureVoxelLightBulbOnRedstoneOff;
 
 import java.util.Map;
 import java.util.Random;
 import java.util.HashMap;
 
 @ElementsRealLightsMod.ModElement.Tag
-public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
-	@GameRegistry.ObjectHolder("real_lights:light_bulb_on")
+public class BlockVoxelLightBulbOn extends ElementsRealLightsMod.ModElement {
+	@GameRegistry.ObjectHolder("real_lights:voxel_light_bulb_on")
 	public static final Block block = null;
-	public BlockLightBulbOn(ElementsRealLightsMod instance) {
+	public BlockVoxelLightBulbOn(ElementsRealLightsMod instance) {
 		super(instance, 13);
 	}
 
 	@Override
 	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("light_bulb_on"));
+		elements.blocks.add(() -> new BlockCustom().setRegistryName("voxel_light_bulb_on"));
 		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
 
@@ -67,13 +67,13 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 	@Override
 	public void registerModels(ModelRegistryEvent event) {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("real_lights:light_bulb_on", "inventory"));
+				new ModelResourceLocation("real_lights:voxel_light_bulb_on", "inventory"));
 	}
 	public static class BlockCustom extends Block {
 		public static final PropertyDirection FACING = BlockDirectional.FACING;
 		public BlockCustom() {
 			super(Material.REDSTONE_LIGHT);
-			setUnlocalizedName("light_bulb_on");
+			setUnlocalizedName("voxel_light_bulb_on");
 			setSoundType(SoundType.METAL);
 			setHardness(0.5F);
 			setResistance(5F);
@@ -96,17 +96,17 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 	        {
 	            case EAST:
 	            default:
-	                return LIGHT_BULB_EAST_AABB;
+	                return VOXEL_LIGHT_BULB_EAST_AABB;
 	            case WEST:
-	                return LIGHT_BULB_WEST_AABB;
+	                return VOXEL_LIGHT_BULB_WEST_AABB;
 	            case SOUTH:
-	                return LIGHT_BULB_SOUTH_AABB;
+	                return VOXEL_LIGHT_BULB_SOUTH_AABB;
 	            case NORTH:
-	                return LIGHT_BULB_NORTH_AABB;
+	                return VOXEL_LIGHT_BULB_NORTH_AABB;
 	            case UP:
-	                return LIGHT_BULB_UP_AABB;
+	                return VOXEL_LIGHT_BULB_UP_AABB;
 	            case DOWN:
-	                return LIGHT_BULB_DOWN_AABB;
+	                return VOXEL_LIGHT_BULB_DOWN_AABB;
 	        }
 		}
 		
@@ -116,17 +116,17 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 	        {
 	            case EAST:
 	            default:
-	                return LIGHT_BULB_EAST_AABB;
+	                return VOXEL_LIGHT_BULB_EAST_AABB;
 	            case WEST:
-	                return LIGHT_BULB_WEST_AABB;
+	                return VOXEL_LIGHT_BULB_WEST_AABB;
 	            case SOUTH:
-	                return LIGHT_BULB_SOUTH_AABB;
+	                return VOXEL_LIGHT_BULB_SOUTH_AABB;
 	            case NORTH:
-	                return LIGHT_BULB_NORTH_AABB;
+	                return VOXEL_LIGHT_BULB_NORTH_AABB;
 	            case UP:
-	                return LIGHT_BULB_UP_AABB;
+	                return VOXEL_LIGHT_BULB_UP_AABB;
 	            case DOWN:
-	                return LIGHT_BULB_DOWN_AABB;
+	                return VOXEL_LIGHT_BULB_DOWN_AABB;
 	        }
 	    }
 	    
@@ -203,7 +203,7 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 					$_dependencies.put("y", y);
 					$_dependencies.put("z", z);
 					$_dependencies.put("world", world);
-					ProcedureLightBulbOnRedstoneOff.executeProcedure($_dependencies);
+					ProcedureVoxelLightBulbOnRedstoneOff.executeProcedure($_dependencies);
 				}
 			}
 		}
@@ -229,7 +229,7 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
-				ProcedureLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}}
+				ProcedureVoxelLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}}
 		}
 		}
 		@Override
@@ -251,7 +251,7 @@ public class BlockLightBulbOn extends ElementsRealLightsMod.ModElement {
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", worldIn);
-				ProcedureLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}
+				ProcedureVoxelLightBulbOnBlockHitWithItem.executeProcedure($_dependencies);}
 	        }
 	    }}
 	}
