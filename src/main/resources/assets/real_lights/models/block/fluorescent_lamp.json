@@ -1,0 +1,8 @@
+{
+  "parent": "real_lights:custom/fluorescentlamp",
+  "textures": {
+    "particle": "real_lights:blocks/darksteel",
+    "texture": "real_lights:blocks/darksteel",
+    "texture1": "real_lights:blocks/lamp"
+  }
+}
