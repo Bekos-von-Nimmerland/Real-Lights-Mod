@@ -1,0 +1,13 @@
+{
+  "group": "real_lights",
+  "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "real_lights:fluorescent_lamp_shattered_90"
+        }
+    ],
+  "result": {
+    "item": "real_lights:fluorescent_lamp_shattered",
+    "count": 1
+  }
+}
