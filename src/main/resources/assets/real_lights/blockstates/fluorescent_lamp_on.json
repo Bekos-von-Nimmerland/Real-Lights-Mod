@@ -1,0 +1,33 @@
+{
+  "variants": {
+    "normal": {
+      "model": "real_lights:fluorescent_lamp_on"
+    },
+    "facing=north": {
+      "model": "real_lights:fluorescent_lamp_on",
+      "y": 180,
+      "x": 90
+    },
+    "facing=east": {
+      "model": "real_lights:fluorescent_lamp_on",
+      "y": 270,
+      "x": 90
+    },
+    "facing=south": {
+      "model": "real_lights:fluorescent_lamp_on",
+      "x": 90
+    },
+    "facing=west": {
+      "model": "real_lights:fluorescent_lamp_on",
+      "y": 90,
+      "x": 90
+    },
+    "facing=up": {
+      "model": "real_lights:fluorescent_lamp_on",
+      "x": 180
+    },
+    "facing=down": {
+      "model": "real_lights:fluorescent_lamp_on"
+    }
+  }
+}
