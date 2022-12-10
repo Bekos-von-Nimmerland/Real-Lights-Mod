@@ -7,8 +7,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class SoundsHandler 
 {
-	public static SoundEvent BUZZ_LAMP, BULB_LAMP_TURN_ON, FLUORESCENT_LAMP_BUZZ,
-	FLUORESCENT_LAMP_TURN_ON, ELECTRICSHOCK, LAMP_OFF_BREAK, LAMP_ON_BREAK, TOUCH_HEAT_HIT, TOUCH_SHATTERS_HIT;
+	public static SoundEvent BUZZ_LAMP, BULB_LAMP_TURN_ON, FLUORESCENT_LAMP_BUZZ, FLUORESCENT_LAMP_TURN_ON, ELECTRICSHOCK, LAMP_OFF_BREAK, LAMP_ON_BREAK, TOUCH_HEAT_HIT, TOUCH_SHATTERS_HIT;
 	
 	public static void registerSounds()
 	{

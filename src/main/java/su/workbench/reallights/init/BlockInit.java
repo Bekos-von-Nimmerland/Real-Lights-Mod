@@ -2,8 +2,9 @@ package su.workbench.reallights.init;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import su.workbench.reallights.blocks.BlockCLBulb;
+import su.workbench.reallights.blocks.BlockCPVSLBulb;
+import su.workbench.reallights.blocks.BlockCVSLBulb;
 import su.workbench.reallights.blocks.BlockFLamp;
 import su.workbench.reallights.blocks.BlockFLamp90;
 import su.workbench.reallights.blocks.BlockFLampC;
@@ -12,6 +13,8 @@ import su.workbench.reallights.blocks.BlockFLampS;
 import su.workbench.reallights.blocks.BlockFLampS90;
 import su.workbench.reallights.blocks.BlockLBulb;
 import su.workbench.reallights.blocks.BlockLBulbS;
+import su.workbench.reallights.blocks.BlockPVSLBulb;
+import su.workbench.reallights.blocks.BlockPVSLBulbS;
 import su.workbench.reallights.blocks.BlockRedLamp;
 import su.workbench.reallights.blocks.BlockVLBulb;
 import su.workbench.reallights.blocks.BlockVLBulbS;
@@ -44,6 +47,13 @@ public class BlockInit
 	public static final Block BLOCK_VOXEL_SMALL_LIGHT_BULB = new BlockVSLBulb("voxel_small_light_bulb_off", false).setLightLevel(0.0F);
 	public static final Block BLOCK_VOXEL_SMALL_LIGHT_BULB_ON = new BlockVSLBulb("voxel_small_light_bulb_on", true);
 	public static final Block BLOCK_VOXEL_SMALL_LIGHT_BULB_SHATTERED = new BlockVSLBulbS("voxel_small_light_bulb_shattered", false).setLightLevel(0.0F);
+	public static final Block BLOCK_PENDANT_VOXEL_SMALL_LIGHT_BULB = new BlockPVSLBulb("pendant_voxel_small_light_bulb_off", false).setLightLevel(0.0F);
+	public static final Block BLOCK_PENDANT_VOXEL_SMALL_LIGHT_BULB_ON = new BlockPVSLBulb("pendant_voxel_small_light_bulb_on", true);
+	public static final Block BLOCK_PENDANT_VOXEL_SMALL_LIGHT_BULB_SHATTERED = new BlockPVSLBulbS("pendant_voxel_small_light_bulb_shattered", false).setLightLevel(0.0F);
+	public static final Block BLOCK_CAGED_VOXEL_SMALL_LIGHT_BULB = new BlockCVSLBulb("caged_voxel_small_light_bulb_off", false).setLightLevel(0.0F);
+	public static final Block BLOCK_CAGED_VOXEL_SMALL_LIGHT_BULB_ON = new BlockCVSLBulb("caged_voxel_small_light_bulb_on", true);
+	public static final Block BLOCK_CAGED_PENDANT_VOXEL_SMALL_LIGHT_BULB = new BlockCPVSLBulb("caged_pendant_voxel_small_light_bulb_off", false).setLightLevel(0.0F);
+	public static final Block BLOCK_CAGED_PENDANT_VOXEL_SMALL_LIGHT_BULB_ON = new BlockCPVSLBulb("caged_pendant_voxel_small_light_bulb_on", true);
 	public static final Block BLOCK_CAGED_LIGHT_BULB = new BlockCLBulb("caged_light_bulb_off", false).setLightLevel(0.0F);
 	public static final Block BLOCK_CAGED_LIGHT_BULB_ON = new BlockCLBulb("caged_light_bulb_on", true);
 	public static final Block BLOCK_RED_LAMP = new BlockRedLamp("red_lamp_off", false).setLightLevel(0.0F);

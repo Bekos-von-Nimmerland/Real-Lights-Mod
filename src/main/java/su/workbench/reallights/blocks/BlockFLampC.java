@@ -81,12 +81,12 @@ public class BlockFLampC extends BlockFLampBase
         {
         	if (!this.isOn&&(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
-			world.playSound((EntityPlayer) null, pos,SoundsHandler.FLUORESCENT_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.2F, 1.0F);
-			world.setBlockState(pos, BlockInit.BLOCK_FLUORESCENT_LAMP_CAGED_ON.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.playSound((EntityPlayer) null, pos,SoundsHandler.FLUORESCENT_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.2F, 1.0F);
+				world.setBlockState(pos, BlockInit.BLOCK_FLUORESCENT_LAMP_CAGED_ON.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         	else if(this.isOn&&!(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
-			world.setBlockState(pos, BlockInit.BLOCK_FLUORESCENT_LAMP_CAGED.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.setBlockState(pos, BlockInit.BLOCK_FLUORESCENT_LAMP_CAGED.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         }
 	}

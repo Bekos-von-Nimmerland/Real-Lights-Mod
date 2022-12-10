@@ -4,6 +4,7 @@ import su.workbench.reallights.Main;
 import su.workbench.reallights.init.BlockInit;
 import su.workbench.reallights.init.ItemInit;
 import su.workbench.reallights.util.interfaces.IHasModel;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

@@ -11,9 +11,9 @@ import net.minecraft.world.World;
 import su.workbench.reallights.init.BlockInit;
 import su.workbench.reallights.util.handlers.SoundsHandler;
 
-public class BlockRedLamp extends BlockLBulbBase
-{
-	public BlockRedLamp(String name, boolean isOn) {
+public class BlockCVSLBulb extends BlockLBulbBase{
+
+	public BlockCVSLBulb(String name, boolean isOn) {
 		super(name, isOn);
 	}
 	@Override
@@ -24,17 +24,17 @@ public class BlockRedLamp extends BlockLBulbBase
         {
             case EAST:
             default:
-                return RED_LAMP_EAST_AABB;
+                return CAGED_LIGHT_BULB_EAST_AABB;
             case WEST:
-                return RED_LAMP_WEST_AABB;
+                return CAGED_LIGHT_BULB_WEST_AABB;
             case SOUTH:
-                return RED_LAMP_SOUTH_AABB;
+                return CAGED_LIGHT_BULB_SOUTH_AABB;
             case NORTH:
-                return RED_LAMP_NORTH_AABB;
+                return CAGED_LIGHT_BULB_NORTH_AABB;
             case UP:
-                return RED_LAMP_UP_AABB;
+                return CAGED_LIGHT_BULB_UP_AABB;
             case DOWN:
-                return RED_LAMP_DOWN_AABB;
+                return CAGED_LIGHT_BULB_DOWN_AABB;
         }
 	}
 	@Override
@@ -45,17 +45,17 @@ public class BlockRedLamp extends BlockLBulbBase
         {
             case EAST:
             default:
-                return RED_LAMP_EAST_AABB;
+                return CAGED_LIGHT_BULB_EAST_AABB;
             case WEST:
-                return RED_LAMP_WEST_AABB;
+                return CAGED_LIGHT_BULB_WEST_AABB;
             case SOUTH:
-                return RED_LAMP_SOUTH_AABB;
+                return CAGED_LIGHT_BULB_SOUTH_AABB;
             case NORTH:
-                return RED_LAMP_NORTH_AABB;
+                return CAGED_LIGHT_BULB_NORTH_AABB;
             case UP:
-                return RED_LAMP_UP_AABB;
+                return CAGED_LIGHT_BULB_UP_AABB;
             case DOWN:
-                return RED_LAMP_DOWN_AABB;
+                return CAGED_LIGHT_BULB_DOWN_AABB;
         }
     }
 	@Override
@@ -65,12 +65,12 @@ public class BlockRedLamp extends BlockLBulbBase
         {
             if (this.isOn && !worldIn.isBlockPowered(pos))
             {
-                worldIn.setBlockState(pos, BlockInit.BLOCK_RED_LAMP.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+                worldIn.setBlockState(pos, BlockInit.BLOCK_CAGED_VOXEL_SMALL_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
             }
             else if (!this.isOn && worldIn.isBlockPowered(pos))
             {
             	worldIn.playSound((EntityPlayer) null, pos,SoundsHandler.BULB_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.5F, 1.0F);
-                worldIn.setBlockState(pos, BlockInit.BLOCK_RED_LAMP_ON.setLightLevel((float) worldIn.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+                worldIn.setBlockState(pos, BlockInit.BLOCK_CAGED_VOXEL_SMALL_LIGHT_BULB_ON.setLightLevel((float) worldIn.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
             }
         }
     }
@@ -82,11 +82,11 @@ public class BlockRedLamp extends BlockLBulbBase
         	if (!this.isOn&&(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
         		world.playSound((EntityPlayer) null, pos,SoundsHandler.BULB_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.5F, 1.0F);
-        		world.setBlockState(pos, BlockInit.BLOCK_RED_LAMP_ON.setLightLevel((float) world.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.setBlockState(pos, BlockInit.BLOCK_CAGED_VOXEL_SMALL_LIGHT_BULB_ON.setLightLevel((float) world.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         	else if(this.isOn&&!(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
-        		world.setBlockState(pos, BlockInit.BLOCK_RED_LAMP.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.setBlockState(pos, BlockInit.BLOCK_CAGED_VOXEL_SMALL_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         }
 	}

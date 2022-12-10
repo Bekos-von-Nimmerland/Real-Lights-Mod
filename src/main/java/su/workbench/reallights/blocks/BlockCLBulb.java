@@ -81,12 +81,12 @@ public class BlockCLBulb extends BlockLBulbBase{
         {
         	if (!this.isOn&&(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
-        	world.playSound((EntityPlayer) null, pos,SoundsHandler.BULB_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.5F, 1.0F);
-			world.setBlockState(pos, BlockInit.BLOCK_CAGED_LIGHT_BULB_ON.setLightLevel((float) world.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.playSound((EntityPlayer) null, pos,SoundsHandler.BULB_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.5F, 1.0F);
+        		world.setBlockState(pos, BlockInit.BLOCK_CAGED_LIGHT_BULB_ON.setLightLevel((float) world.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         	else if(this.isOn&&!(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
-			world.setBlockState(pos, BlockInit.BLOCK_CAGED_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.setBlockState(pos, BlockInit.BLOCK_CAGED_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         }
 	}

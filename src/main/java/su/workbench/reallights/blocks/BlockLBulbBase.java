@@ -1,7 +1,6 @@
 package su.workbench.reallights.blocks;
 
 import java.util.Random;
-
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -38,10 +37,6 @@ public class BlockLBulbBase extends BlockBase
 		setLightOpacity(0);
 		setCreativeTab(CreativeTabs.REDSTONE);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.EAST));
-        /*if (isOn)
-        {
-            this.setLightLevel(1.0F);
-        }*/
 	}
 		@Override
 		public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
@@ -76,8 +71,7 @@ public class BlockLBulbBase extends BlockBase
 			return ((EnumFacing)state.getValue(FACING)).getIndex();
 		}
 		@Override
-		public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-				EntityLivingBase placer) {
+		public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 			return this.getDefaultState().withProperty(FACING, facing);
 		}
 		@Override
@@ -92,7 +86,7 @@ public class BlockLBulbBase extends BlockBase
 	            {
 	            	if (rand.nextDouble() < 0.1D)
 		            {
-	            	worldIn.playSound((EntityPlayer) null, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D,SoundsHandler.BUZZ_LAMP,SoundCategory.BLOCKS, 0.35F, 1.0F);
+	            		worldIn.playSound((EntityPlayer) null, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D,SoundsHandler.BUZZ_LAMP,SoundCategory.BLOCKS, 0.35F, 1.0F);
 		            }
 	            }
 	    }

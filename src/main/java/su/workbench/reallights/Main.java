@@ -1,7 +1,7 @@
 package su.workbench.reallights;
 
 import java.io.File;
-
+import su.workbench.reallights.proxy.ClientProxy;
 import su.workbench.reallights.proxy.CommonProxy;
 import su.workbench.reallights.util.handlers.RegistryHandler;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -31,6 +31,8 @@ public class Main
 	public static void preInit(FMLPreInitializationEvent event) 
 	{	
 		RegistryHandler.preInitRegistries(event);
+		CommonProxy.preInitCommon();
+		ClientProxy.preInitClientOnly();
 	}
 	
 	@EventHandler

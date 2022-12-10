@@ -1,11 +1,10 @@
 package su.workbench.reallights.util.handlers;
 //Credits: TurtyWurty. Really cool guy with good tutorials.
 import java.io.File;
-
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import su.workbench.reallights.Main;
 import su.workbench.reallights.Reference;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ConfigHandler {
 	public static Configuration config;

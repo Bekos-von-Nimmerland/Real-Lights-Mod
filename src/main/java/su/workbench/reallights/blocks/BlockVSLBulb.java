@@ -19,8 +19,12 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import su.workbench.reallights.init.BlockInit;
+import su.workbench.reallights.proxy.CommonProxy;
 import su.workbench.reallights.util.handlers.ConfigHandler;
+import su.workbench.reallights.util.handlers.ParticleMessageHandler;
 import su.workbench.reallights.util.handlers.SoundsHandler;
 
 public class BlockVSLBulb extends BlockLBulbBase{
@@ -93,12 +97,12 @@ public class BlockVSLBulb extends BlockLBulbBase{
         {
         	if (!this.isOn&&(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
-			world.playSound((EntityPlayer) null, pos,SoundsHandler.BULB_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.5F, 1.0F);
-			world.setBlockState(pos, BlockInit.BLOCK_VOXEL_SMALL_LIGHT_BULB_ON.setLightLevel((float) world.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.playSound((EntityPlayer) null, pos,SoundsHandler.BULB_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.5F, 1.0F);
+				world.setBlockState(pos, BlockInit.BLOCK_VOXEL_SMALL_LIGHT_BULB_ON.setLightLevel((float) world.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         	else if(this.isOn&&!(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
-			world.setBlockState(pos, BlockInit.BLOCK_VOXEL_SMALL_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.setBlockState(pos, BlockInit.BLOCK_VOXEL_SMALL_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         }
 	}
@@ -121,6 +125,15 @@ public class BlockVSLBulb extends BlockLBulbBase{
 			{
 				world.playSound((EntityPlayer) null, pos,(this.isOn?SoundsHandler.LAMP_ON_BREAK:SoundsHandler.LAMP_OFF_BREAK),SoundCategory.BLOCKS, 1.0F, 1.0F);
 				world.setBlockState(pos,BlockInit.BLOCK_VOXEL_SMALL_LIGHT_BULB_SHATTERED.getDefaultState().withProperty(FACING, blockState.getValue(FACING)), 2);
+				if (this.isOn)
+				{
+			        ParticleMessageHandler particlePacket = new ParticleMessageHandler(pos);
+					int i = 0;
+						for (i = 1;i < 10;i++) {
+							NetworkRegistry.TargetPoint target = new TargetPoint(world.provider.getDimension(), (double)pos.getX() - world.rand.nextGaussian()*1.5D, (double)pos.getY() - world.rand.nextGaussian()*1.5D, (double)pos.getZ() - world.rand.nextGaussian()*1.5D, world.rand.nextGaussian()*20.d);
+							CommonProxy.simpleNetworkWrapper.sendToAllAround(particlePacket, target);
+						}
+				}
 			}
 		}
 	}

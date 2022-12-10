@@ -27,9 +27,9 @@ import su.workbench.reallights.util.handlers.ConfigHandler;
 import su.workbench.reallights.util.handlers.ParticleMessageHandler;
 import su.workbench.reallights.util.handlers.SoundsHandler;
 
-public class BlockVLBulb extends BlockLBulbBase{
+public class BlockPVSLBulb extends BlockLBulbBase{
 
-	public BlockVLBulb(String name, boolean isOn) {
+	public BlockPVSLBulb(String name, boolean isOn) {
 		super(name, isOn);
 	}
 	@Override
@@ -40,17 +40,17 @@ public class BlockVLBulb extends BlockLBulbBase{
         {
             case EAST:
             default:
-                return VOXEL_LIGHT_BULB_EAST_AABB;
+                return LIGHT_BULB_EAST_AABB;
             case WEST:
-                return VOXEL_LIGHT_BULB_WEST_AABB;
+                return LIGHT_BULB_WEST_AABB;
             case SOUTH:
-                return VOXEL_LIGHT_BULB_SOUTH_AABB;
+                return LIGHT_BULB_SOUTH_AABB;
             case NORTH:
-                return VOXEL_LIGHT_BULB_NORTH_AABB;
+                return LIGHT_BULB_NORTH_AABB;
             case UP:
-                return VOXEL_LIGHT_BULB_UP_AABB;
+                return LIGHT_BULB_UP_AABB;
             case DOWN:
-                return VOXEL_LIGHT_BULB_DOWN_AABB;
+                return LIGHT_BULB_DOWN_AABB;
         }
 	}
 	@Override
@@ -61,17 +61,17 @@ public class BlockVLBulb extends BlockLBulbBase{
         {
             case EAST:
             default:
-                return VOXEL_LIGHT_BULB_EAST_AABB;
+                return LIGHT_BULB_EAST_AABB;
             case WEST:
-                return VOXEL_LIGHT_BULB_WEST_AABB;
+                return LIGHT_BULB_WEST_AABB;
             case SOUTH:
-                return VOXEL_LIGHT_BULB_SOUTH_AABB;
+                return LIGHT_BULB_SOUTH_AABB;
             case NORTH:
-                return VOXEL_LIGHT_BULB_NORTH_AABB;
+                return LIGHT_BULB_NORTH_AABB;
             case UP:
-                return VOXEL_LIGHT_BULB_UP_AABB;
+                return LIGHT_BULB_UP_AABB;
             case DOWN:
-                return VOXEL_LIGHT_BULB_DOWN_AABB;
+                return LIGHT_BULB_DOWN_AABB;
         }
     }
 	@Override
@@ -81,12 +81,12 @@ public class BlockVLBulb extends BlockLBulbBase{
         {
             if (this.isOn && !worldIn.isBlockPowered(pos))
             {
-                worldIn.setBlockState(pos, BlockInit.BLOCK_VOXEL_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+                worldIn.setBlockState(pos, BlockInit.BLOCK_PENDANT_VOXEL_SMALL_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
             }
             else if (!this.isOn && worldIn.isBlockPowered(pos))
             {
             	worldIn.playSound((EntityPlayer) null, pos,SoundsHandler.BULB_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.5F, 1.0F);
-                worldIn.setBlockState(pos, BlockInit.BLOCK_VOXEL_LIGHT_BULB_ON.setLightLevel((float) worldIn.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+                worldIn.setBlockState(pos, BlockInit.BLOCK_PENDANT_VOXEL_SMALL_LIGHT_BULB_ON.setLightLevel((float) worldIn.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
             }
         }
     }
@@ -98,11 +98,11 @@ public class BlockVLBulb extends BlockLBulbBase{
         	if (!this.isOn&&(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
         		world.playSound((EntityPlayer) null, pos,SoundsHandler.BULB_LAMP_TURN_ON,SoundCategory.BLOCKS, 0.5F, 1.0F);
-        		world.setBlockState(pos, BlockInit.BLOCK_VOXEL_LIGHT_BULB_ON.setLightLevel((float) world.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.setBlockState(pos, BlockInit.BLOCK_PENDANT_VOXEL_SMALL_LIGHT_BULB_ON.setLightLevel((float) world.isBlockIndirectlyGettingPowered(pos)/15).getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         	else if(this.isOn&&!(world.isBlockIndirectlyGettingPowered(pos) > 0))
         	{
-        		world.setBlockState(pos, BlockInit.BLOCK_VOXEL_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+        		world.setBlockState(pos, BlockInit.BLOCK_PENDANT_VOXEL_SMALL_LIGHT_BULB.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
         	}
         }
 	}
@@ -124,15 +124,15 @@ public class BlockVLBulb extends BlockLBulbBase{
 			else if(ConfigHandler.LAMP_BREAK_BY_ITEMS&&!(EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0)&&!stack.isEmpty())
 			{
 				world.playSound((EntityPlayer) null, pos,(this.isOn?SoundsHandler.LAMP_ON_BREAK:SoundsHandler.LAMP_OFF_BREAK),SoundCategory.BLOCKS, 1.0F, 1.0F);
-				world.setBlockState(pos,BlockInit.BLOCK_VOXEL_LIGHT_BULB_SHATTERED.getDefaultState().withProperty(FACING, blockState.getValue(FACING)), 2);
+				world.setBlockState(pos,BlockInit.BLOCK_PENDANT_VOXEL_SMALL_LIGHT_BULB_SHATTERED.getDefaultState().withProperty(FACING, blockState.getValue(FACING)), 2);
 				if (this.isOn)
 				{
-			        ParticleMessageHandler particlePacket = new ParticleMessageHandler(pos);
-					int i = 0;
-						for (i = 1;i < 10;i++) {
-							NetworkRegistry.TargetPoint target = new TargetPoint(world.provider.getDimension(), (double)pos.getX() - world.rand.nextGaussian()*1.5D, (double)pos.getY() - world.rand.nextGaussian()*1.5D, (double)pos.getZ() - world.rand.nextGaussian()*1.5D, world.rand.nextGaussian()*20.d);
-							CommonProxy.simpleNetworkWrapper.sendToAllAround(particlePacket, target);
-						}
+		        ParticleMessageHandler particlePacket = new ParticleMessageHandler(pos);
+				int i = 0;
+					for (i = 1;i < 10;i++) {
+						NetworkRegistry.TargetPoint target = new TargetPoint(world.provider.getDimension(), (double)pos.getX() - world.rand.nextGaussian()*1.5D, (double)pos.getY() - world.rand.nextGaussian()*1.5D, (double)pos.getZ() - world.rand.nextGaussian()*1.5D, world.rand.nextGaussian()*20.d);
+						CommonProxy.simpleNetworkWrapper.sendToAllAround(particlePacket, target);
+					}
 				}
 			}
 		}
@@ -145,7 +145,7 @@ public class BlockVLBulb extends BlockLBulbBase{
 			if (entityIn instanceof EntityArrow || entityIn instanceof EntityThrowable || entityIn instanceof EntityFireball)
 			{
 				world.playSound((EntityPlayer) null, pos,(this.isOn?SoundsHandler.LAMP_ON_BREAK:SoundsHandler.LAMP_OFF_BREAK),SoundCategory.BLOCKS, 1.0F, 1.0F);
-				world.setBlockState(pos, BlockInit.BLOCK_VOXEL_LIGHT_BULB_SHATTERED.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
+				world.setBlockState(pos, BlockInit.BLOCK_PENDANT_VOXEL_SMALL_LIGHT_BULB_SHATTERED.getDefaultState().withProperty(FACING, state.getValue(FACING)), 2);
 			}
 		}
 		else if(ConfigHandler.TOUCH_HEAT_HIT&&!world.isRemote&&this.isOn)
