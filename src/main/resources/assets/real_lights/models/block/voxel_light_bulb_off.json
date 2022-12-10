@@ -1,9 +1,0 @@
-{
-  "parent": "real_lights:custom/voxel_light_bulb_off",
-  "textures": {
-	"0": "real_lights:blocks/voxel_glass",
-	"2": "real_lights:blocks/darksteel",
-	"3": "real_lights:blocks/blue_steel",
-	"particle": "real_lights:blocks/voxel_glass"
-  }
-}
