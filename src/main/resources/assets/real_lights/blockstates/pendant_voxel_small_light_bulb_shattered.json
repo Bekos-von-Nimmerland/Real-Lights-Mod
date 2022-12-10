@@ -1,0 +1,33 @@
+{
+  "variants": {
+    "normal": {
+      "model": "real_lights:pendant_voxel_small_light_bulb_shattered"
+    },
+    "facing=north": {
+      "model": "real_lights:pendant_voxel_small_light_bulb_shattered",
+      "y": 180,
+	 "x": 90
+    },
+    "facing=east": {
+      "model": "real_lights:pendant_voxel_small_light_bulb_shattered",
+      "y": 270,
+	 "x": 90
+    },
+    "facing=south": {
+      "model": "real_lights:pendant_voxel_small_light_bulb_shattered",
+	 "x": 90
+    },
+    "facing=west": {
+      "model": "real_lights:pendant_voxel_small_light_bulb_shattered",
+      "y": 90,
+	 "x": 90
+    },
+    "facing=up": {
+      "model": "real_lights:pendant_voxel_small_light_bulb_shattered",
+      "x": 180
+    },
+    "facing=down": {
+      "model": "real_lights:pendant_voxel_small_light_bulb_shattered"
+    }
+  }
+}

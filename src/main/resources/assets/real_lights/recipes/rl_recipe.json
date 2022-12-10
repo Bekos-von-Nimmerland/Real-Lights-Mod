@@ -1,0 +1,37 @@
+{
+  "group": "real_lights",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    " 7 "
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:iron_nugget"
+    },
+    "1": {
+      "item": "minecraft:redstone"
+    },
+    "2": {
+      "item": "minecraft:iron_nugget"
+    },
+    "3": {
+      "item": "minecraft:iron_nugget"
+    },
+    "4": {
+      "item": "minecraft:redstone"
+    },
+    "5": {
+      "item": "minecraft:iron_nugget"
+    },
+    "7": {
+      "item": "minecraft:stained_glass",
+      "data": 14
+    }
+  },
+  "result": {
+    "item": "real_lights:red_lamp_off",
+    "count": 2
+  }
+}

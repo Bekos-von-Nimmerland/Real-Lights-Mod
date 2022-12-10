@@ -1,0 +1,20 @@
+{
+  "group": "real_lights",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:iron_nugget"
+    },
+    "1": {
+      "item": "real_lights:voxel_small_light_bulb_off"
+    }
+  },
+  "result": {
+    "item": "real_lights:pendant_voxel_small_light_bulb_off",
+    "count": 1
+  }
+}

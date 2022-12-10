@@ -1,0 +1,45 @@
+{
+  "group": "real_lights",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:stone",
+      "data": 0
+    },
+    "1": {
+      "item": "minecraft:stone",
+      "data": 0
+    },
+    "2": {
+      "item": "minecraft:stone",
+      "data": 0
+    },
+    "3": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "4": {
+      "item": "minecraft:redstone"
+    },
+    "5": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "6": {
+      "item": "minecraft:quartz"
+    },
+    "7": {
+      "item": "minecraft:quartz"
+    },
+    "8": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "item": "real_lights:fluorescent_lamp",
+    "count": 1
+  }
+}
