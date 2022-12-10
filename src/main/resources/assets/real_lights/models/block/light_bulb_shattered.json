@@ -1,0 +1,10 @@
+{
+  "parent": "real_lights:custom/light_bulb_shattered",
+  "textures": {
+    "particle": "real_lights:blocks/gray_metal",
+    "0": "real_lights:blocks/gray_metal",
+    "1": "real_lights:blocks/darksteel",
+    "4": "real_lights:blocks/blue_steel",
+    "5": "real_lights:blocks/bulb_glass"
+  }
+}

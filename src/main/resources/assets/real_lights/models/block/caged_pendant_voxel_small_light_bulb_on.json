@@ -1,0 +1,10 @@
+{
+  "parent": "real_lights:custom/caged_pendant_voxel_small_light_bulb_on",
+  "textures": {
+	"0": "real_lights:blocks/voxel_glass",
+	"2": "real_lights:blocks/darksteel",
+	"3": "real_lights:blocks/blue_steel",
+	"4": "real_lights:blocks/yellow",
+	"particle": "real_lights:blocks/voxel_glass"
+  }
+}
